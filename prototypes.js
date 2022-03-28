@@ -11,22 +11,29 @@
 // ============================= Using Classes ====================================
 
 class HtmlElement {
+//   everything declared inside the class body will be added to the prototype behind the scenes. 
+//   Defining the click method in the constructor is the correct solution when leveraging classes.
+//   What you defined inside constructor will be an instance property.
   click() {
     console.log("click");
   }
 }
 
+// So this syntax is more for constructor functions, but this works also. It's just not good practive to mix implementations up.
+// So, either classes or constructor functions
 HtmlElement.prototype.focus = function () {
   console.log("focus");
 };
 
 class HtmlSelectElement extends HtmlElement {
+//   you should define it in the constructor with this keyword, because this property will be accesible in every instance considering your way.
   items = [];
 
   set settItems(value) {
     this.items = value;
   }
-
+// best practice is to define constructor first
+//   constructor(items = []) { - makes it optional. Or you could check inside constructor the value of this param
   constructor(items) {
     super();
     this.items = items;
@@ -92,3 +99,5 @@ console.log(obj.items);
 
 // obj.focus();
 // obj.click();
+
+// read more about classes. The constructor function implimentation is 100% corect. Well done
